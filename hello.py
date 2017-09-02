@@ -1,17 +1,19 @@
-from flask import Flask
-app = Flask(__name__)
-
-from flask.ext.script import Manager   # allow —-host -p
-manager = Manager(app)
-
+from datetime import datetime
 from flask import Flask, render_template
+from flask.ext.script import Manager   # allow —-host -p
 from flask.ext.bootstrap import Bootstrap
+from flask.ext.moment import Moment
 
+app = Flask(__name__)
+manager = Manager(app)
 bootstrap = Bootstrap(app)
+moment = Moment(app)
+
+
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html',current_time=datetime.utcnow())
    # return '<h1>hello my world!</h1>'
 
 @app.route('/user/<name>')
